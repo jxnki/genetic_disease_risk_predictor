@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InheritX | Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .hero {
+           text-align: center;
+            padding: 80px 20px;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: -webkit-linear-gradient(#2563eb, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            line-height: 1.6;
+        }
+        .cta-btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4);
+        }
+        .features {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 80px;
+            flex-wrap: wrap;
+        }
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .feature-card i {
+            font-size: 2.5rem;
+            color: #2563eb;
+            margin-bottom: 20px;
+        }
+        .feature-card h3 {
+            margin: 0 0 10px 0;
+            color: #1e293b;
+        }
+        .feature-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" style="max-width: 1000px; background: transparent; box-shadow: none;">
+    <div class="hero">
+        <h1 style="-webkit-text-fill-color: #2563eb;">InheritX</h1>
+        <p>Advanced genetic risk assessment platform. Calculate hereditary probabilities for Thalassemia and Hemophilia using our next-generation analysis models.</p>
+        
+        <a href="/calculator" class="cta-btn">Check Genetic Risk <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i></a>
+
+        <div class="features">
+            <div class="feature-card">
+                <i class="fa-solid fa-calculator"></i>
+                <h3>Precise Models</h3>
+                <p>Using Hardy-Weinberg & Bayesian inference for accurate risk calculation.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-dna"></i>
+                <h3>Multi-Disease</h3>
+                <p>Support for both Autosomal Recessive and X-Linked genetic patterns.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>Privacy First</h3>
+                <p>Anonymous calculation. No personal genetic data is stored on our servers.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

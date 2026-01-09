@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InheritX | Genetic Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>InheritX</h1>
+        <p class="subtitle">Next-Gen Hereditary Trait Analysis</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('thalassemia')">Thalassemia (Autosomal)</button>
+        <button class="tab-btn" onclick="switchTab('hemophilia')">Hemophilia (X-Linked)</button>
+    </div>
+
+    <div id="thalassemia-form" class="form-section active">
+        
+        <div class="partner-card male-card">
+            <h3><i class="fa-solid fa-mars"></i> Male Partner</h3>
+            
+            <div class="input-group">
+                <label>Population / Ethnicity</label>
+                <select id="t_male_pop">
+                    <option value="south_asian">South Asian (High Risk)</option>
+                    <option value="african">African</option>
+                    <option value="european">European</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Does Male Partner have Thalassemia?</label>
+                <div class="toggle-group">
+                    <button class="toggle-btn selected" onclick="toggleDisease('male', false, this)">No</button>
+                    <button class="toggle-btn" onclick="toggleDisease('male', true, this)">Yes</button>
+                </div>
+            </div>
+
+            <div id="male-tree" class="tree-container">
+                <p class="tree-instruction">Click grandparents if they had the disease:</p>
+                <div class="tree-visual">
+                    <div class="generation-1">
+                        <div class="node male" onclick="toggleNode(this)" data-side="male" data-role="g_father">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Grandfather</span>
+                        </div>
+                        <div class="node female" onclick="toggleNode(this)" data-side="male" data-role="g_mother">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Grandmother</span>
+                        </div>
+                    </div>
+                    <div class="connectors">
+                        <div class="line-left"></div>
+                        <div class="line-right"></div>
+                        <div class="line-down"></div>
+                    </div>
+                    <div class="generation-2">
+                        <div class="node male affected">
+                            <i class="fa-solid fa-mars"></i>
+                            <span>Male Partner</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="partner-card female-card">
+            <h3><i class="fa-solid fa-venus"></i> Female Partner</h3>
+            
+            <div class="input-group">
+                <label>Population / Ethnicity</label>
+                <select id="t_female_pop">
+                    <option value="south_asian">South Asian (High Risk)</option>
+                    <option value="african">African</option>
+                    <option value="european">European</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Does Female Partner have Thalassemia?</label>
+                <div class="toggle-group">
+                    <button class="toggle-btn selected" onclick="toggleDisease('female', false, this)">No</button>
+                    <button class="toggle-btn" onclick="toggleDisease('female', true, this)">Yes</button>
+                </div>
+            </div>
+
+            <div id="female-tree" class="tree-container">
+                <p class="tree-instruction">Click grandparents if they had the disease:</p>
+                <div class="tree-visual">
+                    <div class="generation-1">
+                        <div class="node male" onclick="toggleNode(this)" data-side="female" data-role="g_father">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Grandfather</span>
+                        </div>
+                        <div class="node female" onclick="toggleNode(this)" data-side="female" data-role="g_mother">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Grandmother</span>
+                        </div>
+                    </div>
+                    <div class="connectors">
+                        <div class="line-left"></div>
+                        <div class="line-right"></div>
+                        <div class="line-down"></div>
+                    </div>
+                    <div class="generation-2">
+                        <div class="node female affected">
+                            <i class="fa-solid fa-venus"></i>
+                            <span>Female Partner</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group" style="margin-top: 20px;">
+            <label>Are the partners related? (Consanguinity)</label>
+            <select id="t_relation">
+                <option value="unrelated">Unrelated</option>
+                <option value="second_cousins">Second Cousins</option>
+                <option value="first_cousins">First Cousins</option>
+            </select>
+        </div>
+
+        <button class="calc-btn" onclick="runThalassemia()">Analyze Risk</button>
+    </div>
+
+    <div id="hemophilia-form" class="form-section">
+        <div class="partner-card">
+            <h3>X-Linked Parameters</h3>
+            <div class="input-group">
+                <label>Female Partner Carrier Status</label>
+                <select id="h_carrier">
+                    <option value="none">Unknown / Not Tested</option>
+                    <option value="suspected">Suspected</option>
+                    <option value="confirmed">Confirmed</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Female Partner History</label>
+                <select id="h_history">
+                    <option value="none">None</option>
+                    <option value="one_generation">One Generation</option>
+                    <option value="multiple_generations">Multiple Generations</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Female Partner Population</label>
+                <select id="h_pop">
+                    <option value="south_asian">South Asian</option>
+                    <option value="african">African</option>
+                    <option value="european">European</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Male Partner Status</label>
+                <select id="h_father">
+                    <option value="not_affected">Healthy</option>
+                    <option value="affected">Affected (Has Hemophilia)</option>
+                </select>
+            </div>
+        </div>
+        <button class="calc-btn" onclick="runHemophilia()">Analyze Risk</button>
+    </div>
+
+    <div id="results" class="results-box">
+        <h3 style="margin-top:0; color:#334155; text-align:center;">Analysis Report</h3>
+        <div id="bars-container"></div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
