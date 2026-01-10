@@ -20,7 +20,7 @@
         }
         .hero p {
             font-size: 1.2rem;
-            color: #64748b;
+            color: #000000;
             max-width: 600px;
             margin: 0 auto 40px auto;
             line-height: 1.6;
@@ -74,10 +74,10 @@
 </head>
 <body>
 
-<div class="container" style="max-width: 1000px; background: transparent; box-shadow: none;">
-    <div class="hero">
+<div class="container" style="max-width: 100%; background: transparent; box-shadow: none; padding: 0; margin: 0;">
+    <div class="hero" style="position:fixed; inset:0; width:100vw; height:100vh; background-image: url('{{ url_for('static', filename='image.png') }}'); background-size: cover; background-position: center;">
         <h1 style="-webkit-text-fill-color: #2563eb;">InheritX</h1>
-        <p>Advanced genetic risk assessment platform. Calculate hereditary probabilities for Thalassemia and Hemophilia using our next-generation analysis models.</p>
+        <p>Advanced genetic risk assessment platform.Calculate hereditary probabilities for Thalassemia and Hemophilia using our next-generation analysis models.</p>
         
         <a href="/calculator" class="cta-btn">Check Genetic Risk <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i></a>
 

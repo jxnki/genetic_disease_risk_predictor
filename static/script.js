@@ -68,10 +68,16 @@ async function runThalassemia() {
             body: JSON.stringify(payload)
         });
         const data = await res.json();
-        
-        renderResults([
-            { label: 'Autosomal Recessive Risk', val: data.risk }
-        ]);
+        const img = document.getElementById("riskPlot");
+        img.src = "data:image/png;base64," + data.plot;
+        // Set a larger display size for Thalassemia plot
+        img.style.width = '420px';
+        img.style.height = 'auto';
+        img.style.display = 'block';
+        // Hide the bar chart area (we only want the circular plot)
+        const bars = document.getElementById('bars-container');
+        if (bars) { bars.innerHTML = ''; bars.style.display = 'none'; }
+        document.getElementById('results').style.display = 'block';
     } catch (err) {
         console.error(err);
         alert("Error connecting to backend");
@@ -99,12 +105,15 @@ async function runHemophilia() {
             body: JSON.stringify(payload)
         });
         const data = await res.json();
-
-        renderResults([
-            { label: 'Boy (Affected)', val: data.boy },
-            { label: 'Girl (Carrier)', val: data.girl_carrier },
-            { label: 'Girl (Affected)', val: data.girl_affected }
-        ]);
+        const img = document.getElementById("riskPlot");
+        img.src = "data:image/png;base64," + data.plot;
+        // Show a larger image for Hemophilia results
+        img.style.width = '700px';
+        img.style.height = 'auto';
+        img.style.display = 'block';
+        const bars = document.getElementById('bars-container');
+        if (bars) { bars.innerHTML = ''; bars.style.display = 'none'; }
+        document.getElementById('results').style.display = 'block';
     } catch (err) {
         console.error(err);
         alert("Error connecting to backend");
@@ -114,27 +123,58 @@ async function runHemophilia() {
 }
 
 function renderResults(items) {
+    // Bar chart removed — keep function to avoid errors from other code paths
     const container = document.getElementById('bars-container');
-    container.innerHTML = '';
-    
-    items.forEach(item => {
-        let color = '#10b981'; // Green (Low)
-        if(item.val > 50) color = '#ef4444'; // Red (High)
-        else if(item.val > 20) color = '#f59e0b'; // Orange (Med)
-
-        const html = `
-            <div class="bar-wrapper">
-                <div class="bar-header">
-                    <span>${item.label}</span>
-                    <span style="color:${color}">${item.val}%</span>
-                </div>
-                <div class="bar-bg">
-                    <div class="bar-fill" style="width:${item.val}%; background:${color}"></div>
-                </div>
-            </div>
-        `;
-        container.innerHTML += html;
-    });
-    
-    document.getElementById('results').style.display = 'block';
+    if (container) { container.innerHTML = ''; container.style.display = 'none'; }
 }
+
+// -----------------------------
+// Drag-hover and home animations
+// -----------------------------
+(() => {
+    let dragging = false;
+
+    // Track pointer / touch dragging state
+    window.addEventListener('pointerdown', (e) => { if (e.isPrimary) dragging = true; });
+    window.addEventListener('pointerup', (e) => { if (e.isPrimary) dragging = false; clearDragHover(); });
+    window.addEventListener('touchstart', (e) => { dragging = true; });
+    window.addEventListener('touchend', (e) => { dragging = false; clearDragHover(); });
+
+    function clearDragHover() {
+        document.querySelectorAll('.drag-hover').forEach(el => el.classList.remove('drag-hover'));
+    }
+
+    // Add listeners for feature icons and tree nodes
+    function initDragHoverTargets() {
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('pointerenter', (e) => { if (dragging) card.classList.add('drag-hover'); });
+            card.addEventListener('pointerleave', (e) => { card.classList.remove('drag-hover'); });
+            // also allow click-and-drag style movement
+            card.addEventListener('pointerdown', (e) => { card.classList.add('drag-hover'); });
+        });
+
+        document.querySelectorAll('.node').forEach(node => {
+            node.addEventListener('pointerenter', (e) => { if (dragging) node.classList.add('drag-hover'); });
+            node.addEventListener('pointerleave', (e) => { node.classList.remove('drag-hover'); });
+        });
+    }
+
+    // Trigger hero animation and floaty animation on load
+    function initHeroAnimations() {
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            // add entrance class after a tick for smoother effect
+            setTimeout(() => hero.classList.add('animate-in'), 80);
+        }
+        // animate feature icons with a stagger
+        const cards = Array.from(document.querySelectorAll('.feature-card'));
+        cards.forEach((c, i) => {
+            setTimeout(() => c.classList.add('animate-float'), 400 + i * 180);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initDragHoverTargets();
+        initHeroAnimations();
+    });
+})();

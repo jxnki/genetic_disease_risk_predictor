@@ -9,6 +9,19 @@
 </head>
 <body>
 
+<style>
+    /* Match hero background colors (blue → purple) used on the home page */
+    body {
+        background: linear-gradient(135deg, #dff6ff 0%, #87CEEB 100%); /* sky-blue gradient */
+        min-height: 100vh;
+    }
+    /* Make main container slightly translucent to show the background tint */
+    .container {
+        background: rgba(255,255,255,0.95);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    }
+</style>
+
 <div class="container">
     <header>
         <h1>InheritX</h1>
@@ -28,7 +41,7 @@
             <div class="input-group">
                 <label>Population / Ethnicity</label>
                 <select id="t_male_pop">
-                    <option value="south_asian">South Asian (High Risk)</option>
+                    <option value="south_asian">South Asian</option>
                     <option value="african">African</option>
                     <option value="european">European</option>
                 </select>
@@ -76,7 +89,7 @@
             <div class="input-group">
                 <label>Population / Ethnicity</label>
                 <select id="t_female_pop">
-                    <option value="south_asian">South Asian (High Risk)</option>
+                    <option value="south_asian">South Asian</option>
                     <option value="african">African</option>
                     <option value="european">European</option>
                 </select>
@@ -171,6 +184,8 @@
     <div id="results" class="results-box">
         <h3 style="margin-top:0; color:#334155; text-align:center;">Analysis Report</h3>
         <div id="bars-container"></div>
+        <img id="riskPlot" style="width:300px; margin-top:20px; display:block; margin-left:auto; margin-right:auto;">
+
     </div>
 </div>
 
