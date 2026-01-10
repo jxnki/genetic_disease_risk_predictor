@@ -247,6 +247,19 @@ body.home-page { overflow-x: hidden; }
 
 /* Force hero to occupy the full viewport with no internal horizontal gaps */
 .hero { width: 100vw; height: 100vh; padding: 0; margin: 0; left: 0; background-position: top center; }
+/* Responsive: on small screens, make hero relative and allow content to flow */
+@media (max-width: 900px) {
+    .hero { position: relative; height: auto; min-height: 60vh; background-position: center; }
+    body.home-page .container { min-height: auto; }
+}
+
+/* Responsive plot image sizing */
+#riskPlot { display:block; margin: 20px auto; width: auto; max-width: 90%; height: auto; }
+.plot-small { max-width: 420px; }
+.plot-large { max-width: 700px; }
+@media (max-width: 768px) {
+    .plot-small, .plot-large { max-width: 90%; }
+}
 
 .hero > * { z-index: 2; }
 /* Partner Cards */

@@ -70,9 +70,9 @@ async function runThalassemia() {
         const data = await res.json();
         const img = document.getElementById("riskPlot");
         img.src = "data:image/png;base64," + data.plot;
-        // Set a larger display size for Thalassemia plot
-        img.style.width = '420px';
-        img.style.height = 'auto';
+        // Use responsive CSS classes instead of fixed pixel sizes
+        img.classList.remove('plot-large');
+        img.classList.add('plot-small');
         img.style.display = 'block';
         // Hide the bar chart area (we only want the circular plot)
         const bars = document.getElementById('bars-container');
@@ -107,9 +107,9 @@ async function runHemophilia() {
         const data = await res.json();
         const img = document.getElementById("riskPlot");
         img.src = "data:image/png;base64," + data.plot;
-        // Show a larger image for Hemophilia results
-        img.style.width = '700px';
-        img.style.height = 'auto';
+        // Use responsive CSS classes instead of fixed pixel sizes
+        img.classList.remove('plot-small');
+        img.classList.add('plot-large');
         img.style.display = 'block';
         const bars = document.getElementById('bars-container');
         if (bars) { bars.innerHTML = ''; bars.style.display = 'none'; }
