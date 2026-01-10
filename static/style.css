@@ -392,3 +392,72 @@ body.home-page { overflow-x: hidden; }
     display: none; 
 }
 
+/* =========================================
+   MOBILE RESPONSIVENESS (Paste at bottom)
+   ========================================= */
+@media (max-width: 768px) {
+    /* 1. Fix the Main Container */
+    body {
+        padding: 10px; /* Less outer padding */
+    }
+   
+    .container {
+        width: auto; /* Let it stretch */
+        max-width: 100%;
+        margin: 0;
+        padding: 20px; /* Reduce padding from 40px */
+        border-radius: 12px;
+    }
+
+    /* 2. Shrink Huge Headings */
+    h1 {
+        font-size: 1.8rem;
+        margin-top: 10px;
+    }
+   
+    .subtitle {
+        font-size: 0.85rem;
+        margin-bottom: 25px;
+    }
+
+    /* 3. Make Tabs Stackable */
+    .tabs {
+        flex-direction: column; /* Stack tabs vertically on tiny screens */
+        gap: 8px;
+    }
+   
+    .tab-btn {
+        width: 100%; /* Full width buttons */
+        text-align: center;
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    /* 4. Adjust Partner Cards */
+    .partner-card {
+        padding: 15px; /* More space for content */
+    }
+
+    /* 5. Fix the Tree Visuals (Crucial!) */
+    .generation-1 {
+        gap: 20px; /* Bring grandparents closer */
+    }
+   
+    .tree-visual {
+        transform: scale(0.9); /* Slightly shrink tree to fit width */
+    }
+   
+    .connectors {
+        width: 80px; /* Narrower lines */
+    }
+   
+    .line-left, .line-right {
+        width: 35px; /* Adjust line lengths */
+    }
+
+    /* 6. Form Elements */
+    select, button.calc-btn {
+        font-size: 16px; /* Prevents iPhone zoom on focus */
+        padding: 12px;
+    }
+}
